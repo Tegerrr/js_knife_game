@@ -1,0 +1,20 @@
+{
+	"name": "js-knife-game",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"typescript": "~5.9.3",
+		"vite": "^7.3.1"
+	},
+	"dependencies": {
+		"@babylonjs/core": "^8.51.0",
+		"@babylonjs/inspector": "^8.51.1",
+		"@babylonjs/loaders": "^8.51.0"
+	}
+}
