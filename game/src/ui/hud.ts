@@ -1,8 +1,10 @@
 export class HUD {
   private container: HTMLDivElement;
-  private scoreEl: HTMLSpanElement;
+  private moneyEl: HTMLSpanElement;
+  private quotaEl: HTMLSpanElement;
   private missesEl: HTMLSpanElement;
   private progressEl: HTMLSpanElement;
+  private modeEl: HTMLSpanElement;
 
   constructor() {
     this.container = document.createElement("div");
@@ -18,20 +20,27 @@ export class HUD {
       lineHeight: "1.6",
     });
 
-    this.scoreEl = document.createElement("span");
+    this.moneyEl = document.createElement("span");
+    this.quotaEl = document.createElement("span");
     this.missesEl = document.createElement("span");
     this.progressEl = document.createElement("span");
+    this.modeEl = document.createElement("span");
 
-    this.container.innerHTML = "";
-    const scoreLine = document.createElement("div");
-    scoreLine.textContent = "SCORE: ";
-    scoreLine.appendChild(this.scoreEl);
-    this.scoreEl.textContent = "0";
+    const moneyLine = document.createElement("div");
+    moneyLine.textContent = "MONEY: $";
+    moneyLine.appendChild(this.moneyEl);
+    this.moneyEl.textContent = "0";
+
+    const quotaLine = document.createElement("div");
+    quotaLine.textContent = "QUOTA: $";
+    quotaLine.appendChild(this.quotaEl);
+    this.quotaEl.textContent = "0";
+    this.quotaEl.style.color = "#fa0";
 
     const missLine = document.createElement("div");
     missLine.textContent = "MISSES: ";
     missLine.appendChild(this.missesEl);
-    this.missesEl.textContent = "0";
+    this.missesEl.textContent = "0 / 10";
     this.missesEl.style.color = "#e44";
 
     const progressLine = document.createElement("div");
@@ -39,23 +48,39 @@ export class HUD {
     progressLine.appendChild(this.progressEl);
     this.progressEl.textContent = "0%";
 
-    this.container.appendChild(scoreLine);
+    const modeLine = document.createElement("div");
+    modeLine.textContent = "MODE: ";
+    modeLine.appendChild(this.modeEl);
+    this.modeEl.textContent = "—";
+    this.modeEl.style.color = "#8cf";
+
+    this.container.appendChild(moneyLine);
+    this.container.appendChild(quotaLine);
     this.container.appendChild(missLine);
     this.container.appendChild(progressLine);
+    this.container.appendChild(modeLine);
 
     document.body.appendChild(this.container);
   }
 
-  updateScore(score: number): void {
-    this.scoreEl.textContent = String(score);
+  updateMoney(money: number): void {
+    this.moneyEl.textContent = String(money);
   }
 
-  updateMisses(misses: number): void {
-    this.missesEl.textContent = String(misses);
+  updateQuota(quota: number): void {
+    this.quotaEl.textContent = String(quota);
+  }
+
+  updateMisses(misses: number, max: number): void {
+    this.missesEl.textContent = `${misses} / ${max}`;
   }
 
   updateProgress(ratio: number): void {
     this.progressEl.textContent = `${Math.round(ratio * 100)}%`;
+  }
+
+  updateMode(mode: string): void {
+    this.modeEl.textContent = mode;
   }
 
   show(): void {
